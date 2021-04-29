@@ -1,0 +1,29 @@
+.buttonStyle {
+    margin: 10px 0;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 16px;
+
+}
+
+.buttonStyle:hover {
+    cursor: pointer;
+    background: cornflowerblue;
+}
+
+.buttonStyle:active {
+    box-shadow: 0 0 10px black;
+    outline: none;
+}
+
+
+.default {
+    background: dodgerblue;
+    font-style: italic;
+}
+
+.red {
+    background: red;
+}
+
