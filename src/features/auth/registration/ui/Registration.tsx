@@ -1,32 +1,24 @@
-import React, {useState} from "react";
+import React from "react";
 import SuperInputText from "../../../../main/ui/common/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../../main/ui/common/c2-SuperButton/SuperButton";
 import styles from "./Registration.module.css"
-import {RegisterUserTC} from "../bll/registration-reducer";
-import {useDispatch} from "react-redux";
 
-function Registration() {
+type RegistrationType = {
+    onEmailChange: (value: string) => void
+    onPasswordChange: (value: string) => void
+    registerUser: () => void
+    error: string | null
+}
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const dispatch = useDispatch()
-
-    const onEmailChange = (value: string) =>  {
-        setEmail(value)
-    }
-    const onPasswordChange = (value: string) => {
-        setPassword(value)
-    }
-    const registerUser = () => {
-        dispatch(RegisterUserTC(email, password))
-    }
+export const Registration = (props: RegistrationType) => {
 
     return (
         <div className={styles.formContainer}>
             Registration
-            <SuperInputText onChangeText={onEmailChange}/>
-            <SuperInputText onChangeText={onPasswordChange}/>
-            <SuperButton onClick={registerUser}>Register</SuperButton>
+            <SuperInputText onChangeText={props.onEmailChange}/>
+            <SuperInputText onChangeText={props.onPasswordChange}/>
+            {props.error && <span className={styles.error}>{props.error}</span>}
+            <SuperButton onClick={props.registerUser}>Register</SuperButton>
         </div>
     );
 }
