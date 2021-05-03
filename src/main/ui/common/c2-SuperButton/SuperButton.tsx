@@ -19,7 +19,7 @@ const SuperButton: React.FC<SuperButtonPropsType> = (
         <button
             className={finalClassName}
             {...restProps}
-        />
+        >Submit</button>
     );
 }
 
