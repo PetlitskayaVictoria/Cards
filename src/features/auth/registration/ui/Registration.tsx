@@ -15,8 +15,8 @@ export const Registration = (props: RegistrationType) => {
     return (
         <div className={styles.formContainer}>
             Registration
-            <SuperInputText onChangeText={props.onEmailChange}/>
-            <SuperInputText onChangeText={props.onPasswordChange}/>
+            <SuperInputText onChangeText={props.onEmailChange} type={"email"}/>
+            <SuperInputText onChangeText={props.onPasswordChange} type={"password"}/>
             {props.error && <span className={styles.error}>{props.error}</span>}
             <SuperButton onClick={props.registerUser}>Register</SuperButton>
         </div>

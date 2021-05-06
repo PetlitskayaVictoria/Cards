@@ -1,5 +1,6 @@
 import {Dispatch} from "react";
 import {registrationAPI} from "../dal/registration-api";
+import {AppRootStateType} from "../../../../main/bll/store";
 
 type RegistrationStateType = {
     isRegistered: boolean,
@@ -12,7 +13,7 @@ const initialState: RegistrationStateType = {
 
 export const registrationReducer = (state: RegistrationStateType = initialState, action: ActionsType): RegistrationStateType => {
     switch (action.type) {
-        case "SET_IS_REGISTERED": {
+        case "TOGGLE_IS_REGISTERED": {
             return {...state, ...action.payload}
         }
         case "SET_ERROR":{
@@ -23,29 +24,32 @@ export const registrationReducer = (state: RegistrationStateType = initialState,
     }
 }
 
-export const SetIsRegisteredAC = (isRegistered: boolean) => ({
-    type: 'SET_IS_REGISTERED',
+export const ToggleIsRegisteredAC = (isRegistered: boolean) => ({
+    type: "TOGGLE_IS_REGISTERED",
     payload: {
         isRegistered
     }
 } as const)
 
 export const SetErrorAC = (error: string | null) => ({
-    type: 'SET_ERROR',
+    type: "SET_ERROR",
     payload: {
         error
     }
 } as const)
 
 
-export const RegisterUserTC = (email: string, password: string) => (dispatch: Dispatch<any>) => {
+export const RegisterUserTC = (email: string, password: string) => (dispatch: ThunkDispatch,  getState: () => AppRootStateType) => {
     registrationAPI.registerUser(email, password)
         .then((res) => {
-            dispatch(SetIsRegisteredAC(true))
+            dispatch(ToggleIsRegisteredAC(true))
         }).catch((error) => {
-        console.log(error)
             dispatch(SetErrorAC(error.response.data.error))
     })
 }
 
-type ActionsType = ReturnType<typeof SetIsRegisteredAC> | ReturnType<typeof SetErrorAC>
+type ActionsType =
+    | ReturnType<typeof ToggleIsRegisteredAC>
+    | ReturnType<typeof SetErrorAC>
+
+type ThunkDispatch = Dispatch<ActionsType>
