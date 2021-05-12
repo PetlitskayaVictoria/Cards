@@ -3,6 +3,7 @@ import SuperInputText from "../../../main/ui/common/c1-SuperInputText/SuperInput
 import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
 import SuperCheckbox from "../../../main/ui/common/c3-SuperCheckbox/SuperCheckbox";
 import styles from './Test.module.css'
+import Paginator from "../../../main/ui/common/c4-Paginator/Paginator";
 
 function Test() {
     return (
@@ -10,6 +11,13 @@ function Test() {
            <SuperInputText />
             <SuperButton>Click me </SuperButton>
            <SuperCheckbox />
+           <Paginator totalItemsCount={1479}
+                      pageSize={20}
+                      currentPage={2}
+                      onPageChanged={(pageNumber:number) => console.log('Page number is' + pageNumber)}
+                      portionSize={10}
+           />
+
         </div>
     );
 }
