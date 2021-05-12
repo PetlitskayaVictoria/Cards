@@ -2,10 +2,11 @@ import React, {ChangeEvent, useCallback, useState} from "react";
 import Login from "./Login";
 import {AppRootStateType} from "../../../../main/bll/store";
 import {NavLink, Redirect} from "react-router-dom";
-import {login} from "../bll/login-reducer";
+import {login} from "../bll/auth-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {PATH} from "../../../../main/ui/Routes";
 import s from './Login.module.css'
+import {Logout} from "./logaut/Logout";
 
 type LoginContainerType = {}
 
@@ -29,9 +30,11 @@ function LoginContainer() {
     let onClickHandler = () => {
         dispatch(login(email, password, rememberMe))
     }
+
     if (isLogin) {
         return <Redirect to={PATH.PROFILE}/>
     }
+
     return (
         <div>
             <Login

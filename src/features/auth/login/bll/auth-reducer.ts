@@ -10,7 +10,7 @@ type LoginStateType = {
     isLogin: boolean
     error: string | null
 }
-type UserType = {
+export type UserType = {
     _id: string;
     email: string;
     name: string;
@@ -29,7 +29,7 @@ const initialState: LoginStateType = {
     error: null
 }
 
-export const loginReducer = (state: LoginStateType = initialState, action: ActionsLoginType): LoginStateType => {
+export const authReducer = (state: LoginStateType = initialState, action: ActionsLoginType): LoginStateType => {
     switch (action.type) {
         case "SET_IS_LOGIN":
             return {
@@ -43,11 +43,9 @@ export const loginReducer = (state: LoginStateType = initialState, action: Actio
             return state
     }
 }
-export const setLoginAC = (user: LoginStateType) => ({
+export const setLoginAC = (payload: LoginStateType) => ({
     type: 'SET_IS_LOGIN',
-    payload: {
-        user
-    }
+    payload
 } as const)
 export const setError = (error: string | null) => ({
     type: "SET_ERROR",
@@ -65,10 +63,22 @@ export const login = (email: string, password: string, rememberMe: boolean): App
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
                 dispatch(setError(error))
             })
-        /* if (response.data.resultCode === 0) {
-             let {id, email, password, rememberMe, isLogin} = response.data.data
-             dispatch(setLoginAC(id, email, password, rememberMe, isLogin))
-         }*/
+
+    }
+export const logout = (): AppThunk =>
+    (dispatch) => {
+        loginAPI.logout()
+            .then(response => {
+                dispatch(setLoginAC({user: {}, isLogin: false, error: null}))
+                alert(response.data.info)
+
+            })
+            .catch((e) => {
+                const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
+                alert(error)
+                dispatch(setError(error))
+            })
+
     }
 
 

@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import {ActionsLoginType, loginReducer} from "../../features/auth/login/bll/login-reducer";
+import {ActionsLoginType, authReducer} from "../../features/auth/login/bll/auth-reducer";
 import {registrationReducer} from "../../features/auth/registration/bll/registration-reducer";
 import {newPasswordReducer} from "../../features/new-password/bll/new-password-reducer";
 import {profileReducer} from "../../features/profile/bll/profile-reducer";
@@ -10,7 +10,7 @@ import thunkMiddleware from 'redux-thunk'
 
 
 const rootReducer = combineReducers({
-        login: loginReducer,
+        login: authReducer,
         registration: registrationReducer,
         newPassword: newPasswordReducer,
         profile: profileReducer,
