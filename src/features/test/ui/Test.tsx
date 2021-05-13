@@ -4,6 +4,7 @@ import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
 import SuperCheckbox from "../../../main/ui/common/c3-SuperCheckbox/SuperCheckbox";
 import styles from './Test.module.css'
 import Paginator from "../../../main/ui/common/c4-Paginator/Paginator";
+import Search from "../../../main/ui/common/c5-Search/Search";
 
 function Test() {
     return (
@@ -17,6 +18,7 @@ function Test() {
                       onPageChanged={(pageNumber:number) => console.log('Page number is' + pageNumber)}
                       portionSize={10}
            />
+           <Search />
 
         </div>
     );
