@@ -5,6 +5,7 @@ import {newPasswordReducer} from "../../features/new-password/bll/new-password-r
 import {profileReducer} from "../../features/profile/bll/profile-reducer";
 import {resetPasswordReducer} from "../../features/reset-password/bll/reset-password-reducer";
 import {testReducer} from "../../features/test/bll/test-reducer";
+import {packsReducer} from "../../features/packs/bll/packs-reducer";
 
 
 const rootReducer = combineReducers({
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
         newPassword: newPasswordReducer,
         profile: profileReducer,
         resetPassword: resetPasswordReducer,
-        test: testReducer
+        test: testReducer,
+        packs: packsReducer
 })
 
 export const store = createStore(rootReducer);
