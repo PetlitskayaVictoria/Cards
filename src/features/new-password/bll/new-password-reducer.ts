@@ -1,16 +1,38 @@
-export type NewPasswordActionType = {
-   type: string
-}
+import {AppThunk} from "../../../main/bll/store";
+import {passwordAPI} from "../dal/api-password";
+import {Dispatch} from "redux";
 
-type ActionsType = NewPasswordActionType
+export const SET_RECOVERY_PASSWORD = 'SET-RECOVERY-PASSWORD';
+
+
+type ActionsType = ReturnType<typeof setRecoveryPassword>
 type NewPasswordStateType = {
+    isForgot: boolean
 }
-const initialState: NewPasswordStateType = {}
+const initialState = {} as NewPasswordStateType
 
 export const newPasswordReducer = (state: NewPasswordStateType = initialState, action: ActionsType): NewPasswordStateType => {
     switch (action.type) {
-
+        case "SET-RECOVERY-PASSWORD":
+            return {
+                ...state,
+                isForgot: action.isForgot
+            }
         default:
             return state;
     }
+}
+export const setRecoveryPassword = (isForgot: boolean) => ({
+    type: SET_RECOVERY_PASSWORD,
+    isForgot
+})
+
+export const recoveryPasswordTC = (email: string) => (dispatch: Dispatch) => {
+    passwordAPI.recoveryPassword(email)
+        .then(() => {
+            dispatch(setRecoveryPassword(true))
+        })
+        .catch(res => {
+            console.log(res.error)
+        })
 }
