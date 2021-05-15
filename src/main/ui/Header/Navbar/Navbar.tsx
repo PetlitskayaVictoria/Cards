@@ -49,6 +49,12 @@ function Navbar(props: NavbarType) {
                 </li>
                 <li>
                     <NavLink onClick={onClickItem}
+                             to={PATH.PACKS}
+                             className={classes.menuItem}
+                             activeClassName={classes.highlight}>Packs</NavLink>
+                </li>
+                <li>
+                    <NavLink onClick={onClickItem}
                              to={PATH.TEST}
                              className={classes.menuItem}
                              activeClassName={classes.highlight}>Test</NavLink>

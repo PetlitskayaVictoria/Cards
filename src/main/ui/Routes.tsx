@@ -9,6 +9,7 @@ import Registration from "../../features/auth/registration/ui/Registration";
 import ResetPassword from "../../features/reset-password/ui/ResetPassword";
 import NewPassword from "../../features/new-password/ui/NewPassword";
 import Test from "../../features/test/ui/Test";
+import Packs from "../../features/packs/ui/Packs";
 
 
 export const PATH = {
@@ -17,7 +18,8 @@ export const PATH = {
     PROFILE: "/profile",
     RESET_PASSWORD: "/reset-password",
     NEW_PASSWORD: "/new-password",
-    TEST: "/test"
+    TEST: "/test",
+    PACKS: "/packs"
 }
 
 function Routes() {
@@ -33,6 +35,7 @@ function Routes() {
             <Route path={PATH.RESET_PASSWORD} render={() => <ResetPassword />}/>
             <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword />}/>
             <Route path={PATH.TEST} render={() => <Test />}/>
+            <Route path={PATH.PACKS} render={() => <Packs />}/>
 
             {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
             <Route render={() => <Error404/>}/>

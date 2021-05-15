@@ -1,6 +1,8 @@
 export type PackType = {
     id: number,
-    name: string
+    name: string,
+    cardsCount: number,
+    updated: string
 }
 type PacksStateType = {
     searchTerm: string,
@@ -9,7 +11,10 @@ type PacksStateType = {
 const initialState: PacksStateType = {
     searchTerm : "",
     packsList : [
-        {id : 1, name : "React"}, {id : 2, name : "Typescript"}, {id : 3, name : "Redux"}, {id : 4, name : "JavaScript"}
+        {id : 1, name : "React", cardsCount: 40, updated: "2021-05-19T09:54:00"},
+        {id : 2, name : "Typescript", cardsCount: 9, updated: "2021-05-02T04:50:00"},
+        {id : 3, name : "Redux", cardsCount: 115, updated: "2021-03-11T18:24:00"},
+        {id : 4, name : "JavaScript", cardsCount: 13, updated: "2021-02-09T20:17:00"}
     ]
 }
 
