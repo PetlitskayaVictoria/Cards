@@ -1,12 +1,17 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../main/bll/store";
-import {PackType} from "../bll/packs-reducer";
+import {fetchPacksTC, PackType} from "../bll/packs-reducer";
 import Search from "../../../main/ui/common/c5-Search/Search";
 import Pack from "../pack/Pack";
 import style from "./Packs.module.css"
 
 const Packs = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(fetchPacksTC())
+    }, [])
+
     const packs = useSelector<AppRootStateType, Array<PackType> >((state) => state.packs.packsList)
     const searchTerm = useSelector<AppRootStateType, string>((state) => state.packs.searchTerm)
     const filteredPacks = packs.filter((p) => {

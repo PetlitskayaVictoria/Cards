@@ -9,6 +9,8 @@ import Registration from "../../features/auth/registration/ui/Registration";
 import ResetPassword from "../../features/reset-password/ui/ResetPassword";
 import NewPassword from "../../features/new-password/ui/NewPassword";
 import Test from "../../features/test/ui/Test";
+import Packs from "../../features/packs/ui/Packs";
+import RegistrationContainer from "../../features/auth/registration/ui/RegistrationContainer";
 
 
 export const PATH = {
@@ -17,7 +19,8 @@ export const PATH = {
     PROFILE: "/profile",
     RESET_PASSWORD: "/reset-password",
     NEW_PASSWORD: "/new-password",
-    TEST: "/test"
+    TEST: "/test",
+    PACKS: "/packs"
 }
 
 function Routes() {
@@ -28,10 +31,11 @@ function Routes() {
             <Route path={"/"} exact render={() => <Redirect to={PATH.LOGIN}/>}/>
 
             <Route path={PATH.LOGIN} render={() => <Login />}/>
-            <Route path={PATH.REGISTRATION} render={() => <Registration />}/>
+            <Route path={PATH.REGISTRATION} render={() => <RegistrationContainer />}/>
             <Route path={PATH.PROFILE} render={() => <Profile />}/>
             <Route path={PATH.RESET_PASSWORD} render={() => <ResetPassword />}/>
             <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword />}/>
+            <Route path={PATH.PACKS} render={() => <Packs />}/>
             <Route path={PATH.TEST} render={() => <Test />}/>
 
             {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}

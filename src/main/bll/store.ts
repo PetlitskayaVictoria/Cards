@@ -7,7 +7,6 @@ import {resetPasswordReducer} from "../../features/reset-password/bll/reset-pass
 import {testReducer} from "../../features/test/bll/test-reducer";
 import {packsReducer} from "../../features/packs/bll/packs-reducer";
 import thunkMiddleware from 'redux-thunk'
-import {packsReducer} from "../../features/packs/bll/packs-reducer";
 
 const rootReducer = combineReducers({
         login: loginReducer,
