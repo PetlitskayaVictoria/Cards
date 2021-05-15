@@ -8,7 +8,7 @@ function Test() {
     return (
         <div className={styles.container}>
            <SuperInputText />
-           <SuperButton>Click me </SuperButton>
+            <SuperButton>Click me </SuperButton>
            <SuperCheckbox />
         </div>
     );
