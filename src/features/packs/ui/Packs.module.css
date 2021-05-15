@@ -1,3 +1,14 @@
 .tableContainer {
     width: 1200px;
 }
+
+.filtersContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tableHeaders {
+    color: #5e5cdc;
+}
+

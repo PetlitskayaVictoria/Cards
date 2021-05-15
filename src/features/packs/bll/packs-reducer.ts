@@ -1,54 +1,102 @@
 import {packsAPI} from "../dal/packs-api";
 
 export type PackType = {
-    id: number,
-    name: string,
-    cardsCount: number,
+    cardsCount: number
+    created: string
+    deckCover: null | string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
     updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
 }
 type PacksStateType = {
-    searchTerm: string,
+    packName: string
     packsList: Array<PackType>
+    min: number
+    max: number
+    sortPacks: number
+    page: number
+    pageCount: number
+    cardPacksTotalCount: number
 }
 const initialState: PacksStateType = {
-    searchTerm : "",
-    packsList : [
-        // {id : 1, name : "React", cardsCount: 40, updated: "2021-05-19T09:54:00"},
-        // {id : 2, name : "Typescript", cardsCount: 9, updated: "2021-05-02T04:50:00"},
-        // {id : 3, name : "Redux", cardsCount: 115, updated: "2021-03-11T18:24:00"},
-        // {id : 4, name : "JavaScript", cardsCount: 13, updated: "2021-02-09T20:17:00"}
-    ]
+    packName : "",
+    packsList : [],
+    min : 2,
+    max : 50,
+    sortPacks : 0,
+    page : 1,
+    pageCount : 10,
+    cardPacksTotalCount : 0
 }
 
 export const packsReducer = (state: PacksStateType = initialState, action: ActionsType) => {
     switch (action.type) {
-        case "SET_PACKS": return {...state, packsList: action.packsList}
-        case "SET_PACKS_SEARCH_TERM": return {...state, searchTerm: action.searchTerm}
+        case "SET_PACKS":
+            return {...state, packsList : action.packsList}
+        case "SET_PACKS_SEARCH_TERM":
+            return {...state, packName : action.packName}
+        case "SET_CARD_PACKS_TOTAL_COUNT":
+            return {...state, cardPacksTotalCount : action.cardPacksTotalCount}
+        case "SET_PAGE": return {...state, page: action.page}
         default:
             return state;
     }
 }
+// Actions
 
 export const setPacksListAC = (packsList: Array<PackType>): SetPacksListActionType => ({
-    type: "SET_PACKS", packsList
+    type : "SET_PACKS", packsList
 } as const)
-export const SetPacksSearchTermAC = (searchTerm: string): SetPacksSearchTermActionType => ({
+export const SetPacksSearchTermAC = (packName: string): SetPacksSearchTermActionType => ({
     type : 'SET_PACKS_SEARCH_TERM',
-    searchTerm
+    packName
 } as const)
+export const setCardPacksTotalCountAC = (cardPacksTotalCount: number): SetCardPacksTotalCountActionType => ({
+    type : 'SET_CARD_PACKS_TOTAL_COUNT', cardPacksTotalCount
+} as const)
+export const setPageAC = (page: number): SetPageActionType => ({
+    type : 'SET_PAGE', page
+} as const)
+// TC
 
-export const fetchPacksTC = () => (dispatch: any) => {
-    packsAPI.fetchPacks().then((res) => {
-        dispatch(setPacksListAC(res.data))
+export const fetchPacksTC = (packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+    packsAPI.fetchPacks(packName, min, max, sortPacks, page, pageCount).then((res) => {
+        dispatch(setPacksListAC(res.data.cardPacks))
+        dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
     })
 }
 
+// Types
 export type SetPacksSearchTermActionType = {
     type: 'SET_PACKS_SEARCH_TERM',
-    searchTerm: string
+    packName: string
 }
 export type SetPacksListActionType = {
     type: 'SET_PACKS',
     packsList: Array<PackType>
 }
-type ActionsType = SetPacksSearchTermActionType | SetPacksListActionType
+
+export type SetCardPacksTotalCountActionType = {
+    type: 'SET_CARD_PACKS_TOTAL_COUNT',
+    cardPacksTotalCount: number
+}
+
+export type SetPageActionType = {
+    type: 'SET_PAGE',
+    page: number
+}
+type ActionsType =
+    | SetPacksSearchTermActionType
+    | SetPacksListActionType
+    | SetCardPacksTotalCountActionType
+    | SetPageActionType

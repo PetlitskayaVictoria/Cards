@@ -11,6 +11,7 @@ import NewPassword from "../../features/new-password/ui/NewPassword";
 import Test from "../../features/test/ui/Test";
 import Packs from "../../features/packs/ui/Packs";
 import RegistrationContainer from "../../features/auth/registration/ui/RegistrationContainer";
+import LoginContainer from "../../features/auth/login/ui/LoginContainer";
 
 
 export const PATH = {
@@ -30,7 +31,7 @@ function Routes() {
 
             <Route path={"/"} exact render={() => <Redirect to={PATH.LOGIN}/>}/>
 
-            <Route path={PATH.LOGIN} render={() => <Login />}/>
+            <Route path={PATH.LOGIN} render={() => <LoginContainer />}/>
             <Route path={PATH.REGISTRATION} render={() => <RegistrationContainer />}/>
             <Route path={PATH.PROFILE} render={() => <Profile />}/>
             <Route path={PATH.RESET_PASSWORD} render={() => <ResetPassword />}/>

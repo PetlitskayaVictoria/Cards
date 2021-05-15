@@ -27,10 +27,9 @@ const Paginator: React.FC<PaginatorPropsType> = (
     }
 
     const portionsCount = Math.ceil(pagesCount / portionSize)
-    const [portionNumber, setPortionNumber] = useState(2)
+    const [portionNumber, setPortionNumber] = useState(1)
     const leftPortionNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionNumber = portionNumber * portionSize;
-
 
     return (
         <div>
@@ -42,7 +41,9 @@ const Paginator: React.FC<PaginatorPropsType> = (
             {
                 pages.filter((p) => p >= leftPortionNumber && p <= rightPortionNumber)
                     .map((p) => {
-                        return <span key={p} onClick={(e) => onPageChanged(p)}>{p}</span>
+                        return <span className={s.pageNumber}
+                                     key={p}
+                                     onClick={(e) => onPageChanged(p)}>{p}</span>
                     })
             }
             {portionNumber < portionsCount &&

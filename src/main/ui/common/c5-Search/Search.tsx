@@ -6,14 +6,14 @@ import {useDispatch} from "react-redux";
 import {SetPacksSearchTermAC} from "../../../../features/packs/bll/packs-reducer";
 
 type SearchPropsType = {
-
+    setFilteredResults: (packName: string) => void
 };
 
-const Search: React.FC<SearchPropsType> = () => {
+const Search: React.FC<SearchPropsType> = (props) => {
     const dispatch = useDispatch()
     const [inputValue, setInputValue] = useState("")
     const setSearchTerm = () => {
-        dispatch(SetPacksSearchTermAC(inputValue))
+        props.setFilteredResults(inputValue)
     }
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.currentTarget.value)

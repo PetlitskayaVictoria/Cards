@@ -1,4 +1,5 @@
 import axios from "axios";
+import {PackType} from "../bll/packs-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -6,8 +7,18 @@ const instance = axios.create({
 })
 
 export const packsAPI = {
-    fetchPacks() {
-        const promise = instance.get('cards/pack');
-        return promise;
+    fetchPacks(packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) {
+        return instance.get<ResponseType>('cards/pack', {params: {packName, min, max, sortPacks, page, pageCount}});
     }
+}
+
+type ResponseType = {
+    cardPacks: Array<PackType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+    token: string
+    tokenDeathTime: number
 }
