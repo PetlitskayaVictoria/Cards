@@ -25,7 +25,7 @@ export const newPasswordReducer = (state: NewPasswordStateType = initialState, a
 export const setRecoveryPassword = (isForgot: boolean) => ({
     type: SET_RECOVERY_PASSWORD,
     isForgot
-})
+}as const)
 
 export const recoveryPasswordTC = (email: string) => (dispatch: Dispatch) => {
     passwordAPI.recoveryPassword(email)

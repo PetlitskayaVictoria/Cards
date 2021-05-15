@@ -31,7 +31,7 @@ function Routes() {
             <Route path={PATH.LOGIN} render={() => <LoginContainer />}/>
             <Route path={PATH.REGISTRATION} render={() => <Registration />}/>
             <Route path={PATH.PROFILE} render={() => <Profile />}/>
-            <Route path={PATH.RESET_PASSWORD} render={() => <ResetPassword />}/>
+            <Route path={PATH.RESET_PASSWORD} render={() => <ResetPassword  />}/>
             <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword />}/>
             <Route path={PATH.TEST} render={() => <Test />}/>
 

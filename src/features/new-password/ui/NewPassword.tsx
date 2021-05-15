@@ -4,6 +4,8 @@ import {NavLink, Redirect} from "react-router-dom";
 import {AppRootStateType} from "../../../main/bll/store";
 import {recoveryPasswordTC} from "../bll/new-password-reducer";
 import {PATH} from "../../../main/ui/Routes";
+import s from "../../auth/login/ui/Login.module.css";
+import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
 
 function NewPassword() {
     const isForgot = useSelector<AppRootStateType, boolean>(state => state.newPassword.isForgot)
@@ -19,15 +21,17 @@ function NewPassword() {
         return <Redirect to={PATH.RESET_PASSWORD}/>
     }
     return (
-        <div>
+        <div className={s.formContainer}>
             <form>
-                <span>Email:</span> <input type={'email'} onChange={onChangePasswordHandler}/>
+                <span>Email:</span>
+                <div><input type={'email'} onChange={onChangePasswordHandler}/>
+                </div>
                 <div>
-                    <button type={'submit'} onClick={sendEmail}>Send</button>
+                    <div><SuperButton onClick={sendEmail}>Send</SuperButton></div>
                 </div>
             </form>
             <div>
-                <NavLink to={PATH.LOGIN}>Login</NavLink>
+                <NavLink className={s.text} to={PATH.LOGIN}>Login</NavLink>
             </div>
         </div>
 

@@ -16,6 +16,11 @@ export const passwordAPI = {
                      <a href='http://localhost:3000/Cards?#/new-password/$token$'>Click</a>
                      </div>`
         })
-            .then(res=>res.data)
+            .then(res => res.data)
+    },
+    resetPassword(password: string, resetPasswordToken: string) {
+        return instance.post<{ info: string, error?: string }>
+        ('auth/set-new-password', {password, resetPasswordToken})
+            .then(response => response.data)
     }
 }
