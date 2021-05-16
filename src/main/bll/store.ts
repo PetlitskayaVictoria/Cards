@@ -7,6 +7,7 @@ import {resetPasswordReducer} from "../../features/reset-password/bll/reset-pass
 import {testReducer} from "../../features/test/bll/test-reducer";
 import {packsReducer} from "../../features/packs/bll/packs-reducer";
 import thunkMiddleware, { ThunkAction } from 'redux-thunk'
+import {cardsReducer} from "../../features/cards/bll/cards-reducer";
 
 const rootReducer = combineReducers({
         login: authReducer,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
         profile: profileReducer,
         resetPassword: resetPasswordReducer,
         test: testReducer,
-        packs: packsReducer
+        packs: packsReducer,
+        cards: cardsReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));

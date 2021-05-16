@@ -1,7 +1,15 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../main/bll/store";
-import {fetchPacksTC, PackType, SetPacksSearchTermAC, setPageAC} from "../bll/packs-reducer";
+import {
+    addPackTC,
+    deletePackTC,
+    fetchPacksTC,
+    PackType,
+    SetPacksSearchTermAC,
+    setPageAC,
+    updatePackTC
+} from "../bll/packs-reducer";
 import Search from "../../../main/ui/common/c5-Search/Search";
 import Pack from "../pack/Pack";
 import style from "./Packs.module.css"
@@ -32,6 +40,16 @@ const Packs = () => {
         dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
     }
 
+    const addPack = () => {
+        dispatch(addPackTC(packName, min, max, sortPacks, page, pageCount))
+    }
+    const updatePack = (id: string) => {
+        dispatch(updatePackTC(id, packName, min, max, sortPacks, page, pageCount))
+    }
+    const deletePack = (id: string) => {
+        dispatch(deletePackTC(id, packName, min, max, sortPacks, page, pageCount))
+    }
+
     return (
         <div>
             <h2>Packs</h2>
@@ -49,9 +67,14 @@ const Packs = () => {
                     <td>Name</td>
                     <td>Cards Count</td>
                     <td>Updated</td>
+                    <button onClick={addPack}>Add</button>
                 </tr>
                 {packs.map((p) => {
-                    return <Pack pack={p}/>
+                    return <Pack key={p._id}
+                                 pack={p}
+                                 updatePack={updatePack}
+                                 deletePack={deletePack}
+                    />
                 })}
             </table>
         </div>

@@ -31,7 +31,7 @@ type PacksStateType = {
 const initialState: PacksStateType = {
     packName : "",
     packsList : [],
-    min : 2,
+    min : 0,
     max : 50,
     sortPacks : 0,
     page : 1,
@@ -73,6 +73,24 @@ export const fetchPacksTC = (packName?: string, min?: number, max?: number, sort
     packsAPI.fetchPacks(packName, min, max, sortPacks, page, pageCount).then((res) => {
         dispatch(setPacksListAC(res.data.cardPacks))
         dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
+    })
+}
+
+export const addPackTC = (packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+    packsAPI.addPack().then(() => {
+        dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
+    })
+}
+
+export const updatePackTC = (id: string, packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+    packsAPI.updatePack(id).then(() => {
+        dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
+    })
+}
+
+export const deletePackTC = (id: string, packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+    packsAPI.deletePack(id).then(() => {
+        dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
     })
 }
 

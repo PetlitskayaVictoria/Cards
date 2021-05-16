@@ -12,6 +12,7 @@ import Test from "../../features/test/ui/Test";
 import Packs from "../../features/packs/ui/Packs";
 import RegistrationContainer from "../../features/auth/registration/ui/RegistrationContainer";
 import LoginContainer from "../../features/auth/login/ui/LoginContainer";
+import Cards from "../../features/cards/ui/Cards";
 
 
 export const PATH = {
@@ -21,7 +22,8 @@ export const PATH = {
     RESET_PASSWORD: "/reset-password",
     NEW_PASSWORD: "/new-password",
     TEST: "/test",
-    PACKS: "/packs"
+    PACKS: "/packs",
+    CARDS: "/cards"
 }
 
 function Routes() {
@@ -37,6 +39,7 @@ function Routes() {
             <Route path={PATH.RESET_PASSWORD} render={() => <ResetPassword />}/>
             <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword />}/>
             <Route path={PATH.PACKS} render={() => <Packs />}/>
+            <Route path={PATH.CARDS} render={() => <Cards />}/>
             <Route path={PATH.TEST} render={() => <Test />}/>
 
             {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
