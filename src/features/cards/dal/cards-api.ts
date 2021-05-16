@@ -1,9 +1,4 @@
-import axios from "axios";
-
-const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'http://localhost:7542/2.0/'
-})
+import {instance} from "../../../main/dal/instance";
 
 export const cardsAPI = {
     fetchCards(cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) {

@@ -1,9 +1,5 @@
-import axios from "axios";
+import {instance} from "../../../../main/dal/instance";
 
-const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'http://localhost:7542/2.0/'
-})
 export const loginAPI = {
     login(email: string, password: string, rememberMe: boolean) {
         const promise= instance.post(`auth/login`, {email, password, rememberMe})

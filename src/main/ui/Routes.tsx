@@ -9,6 +9,10 @@ import Registration from "../../features/auth/registration/ui/Registration";
 import ResetPassword from "../../features/reset-password/ui/ResetPassword";
 import NewPassword from "../../features/new-password/ui/NewPassword";
 import Test from "../../features/test/ui/Test";
+import Packs from "../../features/packs/ui/Packs";
+import Cards from "../../features/cards/ui/Cards";
+import LoginContainer from "../../features/auth/login/ui/LoginContainer";
+import RegistrationContainer from "../../features/auth/registration/ui/RegistrationContainer";
 
 
 export const PATH = {
@@ -29,8 +33,8 @@ function Routes() {
 
                 <Route path={"/"} exact render={() => <Redirect to={PATH.LOGIN}/>}/>
 
-                <Route path={PATH.LOGIN} render={() => <Login/>}/>
-                <Route path={PATH.REGISTRATION} render={() => <Registration/>}/>
+                <Route path={PATH.LOGIN} render={() => <LoginContainer/>}/>
+                <Route path={PATH.REGISTRATION} render={() => <RegistrationContainer/>}/>
                 <Route path={PATH.PROFILE} render={() => <Profile/>}/>
                 <Route path={PATH.RESET_PASSWORD} render={() => <ResetPassword/>}/>
                 <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword/>}/>

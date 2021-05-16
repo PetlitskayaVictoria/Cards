@@ -7,6 +7,7 @@ import {testReducer} from "../../features/test/bll/test-reducer";
 import thunkMiddleware, { ThunkAction } from 'redux-thunk'
 import {packsReducer} from "../../features/packs/bll/packs-reducer";
 import {cardsReducer} from "../../features/cards/bll/cards-reducer";
+import {registrationReducer} from "../../features/auth/registration/bll/registration-reducer";
 
 const rootReducer = combineReducers({
         login: authReducer,
