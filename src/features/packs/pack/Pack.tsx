@@ -16,7 +16,7 @@ const Pack: React.FC<PackPropsType> = (props) => {
     const onDeleteClick = () => {
         props.deletePack(props.pack._id)
     }
-
+    const id = props.pack._id
     return (
         <>
             <tr>
@@ -26,7 +26,7 @@ const Pack: React.FC<PackPropsType> = (props) => {
                 <button onClick={onUpdateClick}>update</button>
                 <button onClick={onDeleteClick}>delete</button>
                 <NavLink
-                         to={`${PATH.CARDS}/${props.pack._id}`}
+                         to={`${PATH.CARDS}/${id}`}
                          >cards</NavLink>
             </tr>
 

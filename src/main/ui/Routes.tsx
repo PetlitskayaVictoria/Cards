@@ -35,7 +35,7 @@ function Routes() {
                 <Route path={PATH.RESET_PASSWORD} render={() => <ResetPassword/>}/>
                 <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword/>}/>
                 <Route path={PATH.PACKS} render={() => <Packs/>}/>
-                <Route path={PATH.CARDS} render={() => <Cards/>}/>
+                <Route path={`${PATH.CARDS}/:id`} render={() => <Cards/>}/>
                 <Route path={PATH.TEST} render={() => <Test/>}/>
 
                 <Route render={() => <Error404/>}/>

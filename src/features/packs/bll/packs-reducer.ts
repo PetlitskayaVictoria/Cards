@@ -47,7 +47,7 @@ export const packsReducer = (state: PacksStateType = initialState, action: Actio
             return {...state, packName : action.packName}
         case "SET_CARD_PACKS_TOTAL_COUNT":
             return {...state, cardPacksTotalCount : action.cardPacksTotalCount}
-        case "SET_PAGE": return {...state, page: action.page}
+        case 'PACKS/SET_PAGE': return {...state, page: action.page}
         default:
             return state;
     }
@@ -65,7 +65,7 @@ export const setCardPacksTotalCountAC = (cardPacksTotalCount: number): SetCardPa
     type : 'SET_CARD_PACKS_TOTAL_COUNT', cardPacksTotalCount
 } as const)
 export const setPageAC = (page: number): SetPageActionType => ({
-    type : 'SET_PAGE', page
+    type : 'PACKS/SET_PAGE', page
 } as const)
 // TC
 
@@ -110,7 +110,7 @@ export type SetCardPacksTotalCountActionType = {
 }
 
 export type SetPageActionType = {
-    type: 'SET_PAGE',
+    type: 'PACKS/SET_PAGE',
     page: number
 }
 type ActionsType =

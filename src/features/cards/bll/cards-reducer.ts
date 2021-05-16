@@ -27,8 +27,9 @@ const initialState: CardsStateType = {
 
 export const cardsReducer = (state: CardsStateType = initialState, action: ActionsType) => {
     switch (action.type) {
-        case "SET_CARDS": return {...state, cardsPack_id: action.packId, cardsList: action.cardsList}
+        case "SET_CARDS": return {...state, cardsList: action.cardsList}
         case "SET_CARD_TOTAL_COUNT": return {...state, cardsTotalCount: action.cardsTotalCount}
+        case "CARDS/SET_PAGE": return {...state, page: action.page}
         default:
             return state;
     }
@@ -36,12 +37,18 @@ export const cardsReducer = (state: CardsStateType = initialState, action: Actio
 // Actions
 
 export const setCardsListAC = (cardsList: Array<CardType>): SetCardsListActionType => ({
-    type : "SET_CARDS", packId: cardsList[0].cardsPack_id, cardsList
+    type : "SET_CARDS", cardsList
 } as const)
 
 export const setCardsTotalCountAC = (cardsTotalCount: number): SetCardSTotalCountActionType => ({
     type : 'SET_CARD_TOTAL_COUNT', cardsTotalCount
 } as const)
+
+export const setCardsPageAC = (page: number): SetCardsPageActionType => ({
+    type : 'CARDS/SET_PAGE', page
+} as const)
+
+//Thunk
 
 export const fetchCardsTC = (cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) => (dispatch: any) => {
     cardsAPI.fetchCards(cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount).then((res) => {
@@ -50,15 +57,25 @@ export const fetchCardsTC = (cardAnswer?: string, cardQuestion?: string, cardsPa
     })
 }
 
+export const addCardTC = (card: CardType, cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+    cardsAPI.addCard(card).then(() => {
+        dispatch(fetchCardsTC(cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount))
+    })
+}
+
 export type SetCardsListActionType = {
     type: 'SET_CARDS',
-    packId: string,
     cardsList: Array<CardType>
 }
 export type SetCardSTotalCountActionType = {
-    type: 'SET_CARD_TOTAL_COUNT',
+    type: 'SET_CARD_TOTAL_COUNT'
     cardsTotalCount: number
 }
 
-type ActionsType = SetCardsListActionType | SetCardSTotalCountActionType
+export type SetCardsPageActionType = {
+    type : 'CARDS/SET_PAGE'
+    page: number
+}
+
+type ActionsType = SetCardsListActionType | SetCardSTotalCountActionType | SetCardsPageActionType
 

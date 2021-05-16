@@ -3,6 +3,9 @@ import {instance} from "../../../main/dal/instance";
 export const cardsAPI = {
     fetchCards(cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) {
         return instance.get<ResponseType>('cards/card', {params: {cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount}})
+    },
+    addCard(card: CardType) {
+        return instance.post('cards/card', {card})
     }
 }
 
