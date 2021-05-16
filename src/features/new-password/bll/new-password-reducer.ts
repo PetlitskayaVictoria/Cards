@@ -1,4 +1,3 @@
-import {AppThunk} from "../../../main/bll/store";
 import {passwordAPI} from "../dal/api-password";
 import {Dispatch} from "redux";
 

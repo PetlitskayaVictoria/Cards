@@ -1,11 +1,8 @@
 import React from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
 import styles from './Routes.module.css'
-
 import Error404 from "./Header/error404/Error404";
-import Login from "../../features/auth/login/ui/Login";
 import Profile from "../../features/profile/ui/Profile";
-import Registration from "../../features/auth/registration/ui/Registration";
 import ResetPassword from "../../features/reset-password/ui/ResetPassword";
 import NewPassword from "../../features/new-password/ui/NewPassword";
 import Test from "../../features/test/ui/Test";
@@ -13,7 +10,6 @@ import Packs from "../../features/packs/ui/Packs";
 import Cards from "../../features/cards/ui/Cards";
 import LoginContainer from "../../features/auth/login/ui/LoginContainer";
 import RegistrationContainer from "../../features/auth/registration/ui/RegistrationContainer";
-
 
 export const PATH = {
     LOGIN : "/login",
@@ -42,7 +38,6 @@ function Routes() {
                 <Route path={PATH.CARDS} render={() => <Cards/>}/>
                 <Route path={PATH.TEST} render={() => <Test/>}/>
 
-                {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
                 <Route render={() => <Error404/>}/>
 
             </Switch>

@@ -7,7 +7,6 @@ import {Logout} from "../../../../features/auth/login/ui/logaut/Logout";
 type NavbarType = {
     isCollapsed: boolean
     setCollapsed: (isCollapsed: boolean) => void
-
 }
 
 function Navbar(props: NavbarType) {

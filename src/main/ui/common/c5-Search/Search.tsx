@@ -1,16 +1,12 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, useState} from "react";
-import s from "./SuperCheckbox.module.css";
+import React, {ChangeEvent, useState} from "react";
 import SuperInputText from "../c1-SuperInputText/SuperInputText";
 import SuperButton from "../c2-SuperButton/SuperButton";
-import {useDispatch} from "react-redux";
-import {SetPacksSearchTermAC} from "../../../../features/packs/bll/packs-reducer";
 
 type SearchPropsType = {
     setFilteredResults: (packName: string) => void
 };
 
 const Search: React.FC<SearchPropsType> = (props) => {
-    const dispatch = useDispatch()
     const [inputValue, setInputValue] = useState("")
     const setSearchTerm = () => {
         props.setFilteredResults(inputValue)

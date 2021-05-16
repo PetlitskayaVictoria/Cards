@@ -2,7 +2,6 @@ import React from "react";
 import {PackType} from "../bll/packs-reducer";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../main/ui/Routes";
-import {useDispatch} from "react-redux";
 
 type PackPropsType = {
     pack: PackType
@@ -11,7 +10,6 @@ type PackPropsType = {
 }
 
 const Pack: React.FC<PackPropsType> = (props) => {
-    const dispatch = useDispatch()
     const onUpdateClick = () => {
         props.updatePack(props.pack._id)
     }

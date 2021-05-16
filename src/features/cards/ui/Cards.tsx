@@ -24,13 +24,6 @@ const Cards = () => {
         <div>
             <h2>Cards</h2>
             <div className={style.filtersContainer}>
-            {/*    <Search setFilteredResults={setFilteredResults}/>*/}
-            {/*    <Paginator totalItemsCount={cardPacksTotalCount}*/}
-            {/*               pageSize={pageCount}*/}
-            {/*               currentPage={page}*/}
-            {/*               onPageChanged={setPage}*/}
-            {/*               portionSize={10}*/}
-            {/*    />*/}
             </div>
             <table className={style.tableContainer}>
                 <tr className={style.tableHeaders}>

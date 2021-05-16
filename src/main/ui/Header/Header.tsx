@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import classes from './Header.module.css'
 import Navbar from "./Navbar/Navbar";
 
-
 function Header() {
 
     const [isCollapsed, setCollapsed] = useState<boolean>(true)
