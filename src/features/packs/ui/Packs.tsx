@@ -14,6 +14,7 @@ import Search from "../../../main/ui/common/c5-Search/Search";
 import Pack from "../pack/Pack";
 import style from "./Packs.module.css"
 import Paginator from "../../../main/ui/common/c4-Paginator/Paginator";
+import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
 
 const Packs = () => {
     const dispatch = useDispatch()
@@ -67,7 +68,7 @@ const Packs = () => {
                     <td>Name</td>
                     <td>Cards Count</td>
                     <td>Updated</td>
-                    <button onClick={addPack}>Add</button>
+                    <SuperButton onClick={addPack} className={style.addButton}>ADD</SuperButton>
                 </tr>
                 {packs.map((p) => {
                     return <Pack key={p._id}

@@ -2,6 +2,8 @@ import React from "react";
 import {PackType} from "../bll/packs-reducer";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../main/ui/Routes";
+import style from "./Pack.module.css"
+import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
 
 type PackPropsType = {
     pack: PackType
@@ -19,12 +21,12 @@ const Pack: React.FC<PackPropsType> = (props) => {
     const id = props.pack._id
     return (
         <>
-            <tr>
+            <tr className={style.packItem}>
                 <td>{props.pack.name}</td>
                 <td>{props.pack.cardsCount}</td>
                 <td>{props.pack.updated}</td>
-                <button onClick={onUpdateClick}>update</button>
-                <button onClick={onDeleteClick}>delete</button>
+                <SuperButton onClick={onUpdateClick}>update</SuperButton>
+                <SuperButton onClick={onDeleteClick}>delete</SuperButton>
                 <NavLink
                          to={`${PATH.CARDS}/${id}`}
                          >cards</NavLink>

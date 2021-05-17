@@ -9,7 +9,7 @@
 
 .buttonStyle:hover {
     cursor: pointer;
-    background: cornflowerblue;
+    background: #8f8eea;
 }
 
 .buttonStyle:active {
@@ -19,7 +19,7 @@
 
 
 .default {
-    background: dodgerblue;
+    background: #5e5cdc;
     font-style: italic;
 }
 
