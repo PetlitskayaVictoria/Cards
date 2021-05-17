@@ -52,7 +52,7 @@ const Packs = () => {
     }
 
     return (
-        <div>
+        <div className={style.packsContainer}>
             <h2>Packs</h2>
             <div className={style.filtersContainer}>
                 <Search setFilteredResults={setFilteredResults}/>

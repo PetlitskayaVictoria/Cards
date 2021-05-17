@@ -1,5 +1,5 @@
-.tableContainer {
-    width: 1200px;
+.packsContainer {
+    width: 80%;
 }
 
 .filtersContainer {
@@ -16,5 +16,9 @@
 .addButton {
     width: 100px;
     height: 35px;
+}
+
+.tableHeaders td {
+    padding: 10px 30px 10px 0;
 }
 

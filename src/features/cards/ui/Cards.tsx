@@ -7,6 +7,7 @@ import {addCardTC, fetchCardsTC, setCardsPageAC} from "../bll/cards-reducer";
 import Card from "./Card/Card";
 import { useParams } from "react-router-dom";
 import Paginator from "../../../main/ui/common/c4-Paginator/Paginator";
+import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
 type RoutesParamType = {
     id: string
 }
@@ -50,7 +51,7 @@ const Cards = () => {
     }
 
     return (
-        <div>
+        <div className={style.cardsContainer}>
             <h2>Cards</h2>
             <div className={style.paginator}>
                 <Paginator totalItemsCount={cardsTotalCount}
@@ -68,7 +69,7 @@ const Cards = () => {
                     <td>Answer</td>
                     <td>Grade</td>
                     <td>Updated</td>
-                    <button onClick={addCard}>Add</button>
+                    <SuperButton onClick={addCard}>Add</SuperButton>
                 </tr>
                 {cards.map((c) => {
                     return <Card key={c._id}

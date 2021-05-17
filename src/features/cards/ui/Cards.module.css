@@ -1,5 +1,5 @@
-.tableContainer {
-    width: 1200px;
+.cardsContainer {
+    width: 80%;
 }
 
 .filtersContainer {
@@ -14,5 +14,9 @@
 
 .paginator {
     text-align: right;
+}
+
+td {
+    padding: 10px 30px;
 }
 
