@@ -3,7 +3,7 @@ import style from "./Cards.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../main/bll/store";
 import {CardType} from "../dal/cards-api";
-import {addCardTC, fetchCardsTC, setCardsPageAC} from "../bll/cards-reducer";
+import {addCardTC, deleteCardTC, fetchCardsTC, setCardsPageAC, updateCardTC} from "../bll/cards-reducer";
 import Card from "./Card/Card";
 import { useParams } from "react-router-dom";
 import Paginator from "../../../main/ui/common/c4-Paginator/Paginator";
@@ -45,9 +45,17 @@ const Cards = () => {
             created: "",
             updated: "",
             _v: 0,
-            _id: 0
+            _id: ""
         }
         dispatch(addCardTC(card, cardAnswer, cardQuestion, id, min, max, sortCards, page, pageCount))
+    }
+
+    const updateCard = (_id: string) => {
+        dispatch(updateCardTC(_id, "new question", "new comments", cardAnswer, cardQuestion, id, min, max, sortCards, page, pageCount))
+    }
+
+    const deleteCard = (_id: string) => {
+        dispatch(deleteCardTC(_id, cardAnswer, cardQuestion, id, min, max, sortCards, page, pageCount))
     }
 
     return (
@@ -75,6 +83,8 @@ const Cards = () => {
                     return <Card key={c._id}
                                  card={c}
                                  packId={c.cardsPack_id}
+                                 updateCard={updateCard}
+                                 deleteCard={deleteCard}
 
                     />
                 })}

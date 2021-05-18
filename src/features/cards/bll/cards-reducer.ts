@@ -63,6 +63,19 @@ export const addCardTC = (card: CardType, cardAnswer?: string, cardQuestion?: st
     })
 }
 
+
+export const updateCardTC = (_id: string, question: string, comments: string, cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+    cardsAPI.updateCard(_id, question, comments).then(() => {
+        dispatch(fetchCardsTC(cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount))
+    })
+}
+
+export const deleteCardTC = (id: string,  cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+    cardsAPI.deleteCard(id).then(() => {
+        dispatch(fetchCardsTC(cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount))
+    })
+}
+
 export type SetCardsListActionType = {
     type: 'SET_CARDS',
     cardsList: Array<CardType>

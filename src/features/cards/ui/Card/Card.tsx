@@ -6,10 +6,18 @@ import style from "./Card.module.css"
 type CardPropsType = {
     card: CardType
     packId: string
+    updateCard: (_id: string) => void
+    deleteCard: (id: string) => void
 }
 
 const Card: React.FC<CardPropsType> = (props) => {
+    const updateCard = () => {
+        props.updateCard(props.card._id)
+    }
 
+    const deleteCard = () => {
+        props.deleteCard(props.card._id)
+    }
 
     return (
         <>
@@ -18,8 +26,8 @@ const Card: React.FC<CardPropsType> = (props) => {
                 <td>{props.card.answer}</td>
                 <td>{props.card.grade}</td>
                 <td>{props.card.updated}</td>
-                <SuperButton>update</SuperButton>
-                <SuperButton>delete</SuperButton>
+                <SuperButton onClick={updateCard}>update</SuperButton>
+                <SuperButton onClick={deleteCard}>delete</SuperButton>
             </tr>
 
         </>

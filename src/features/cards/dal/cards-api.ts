@@ -6,6 +6,12 @@ export const cardsAPI = {
     },
     addCard(card: CardType) {
         return instance.post('cards/card', {card})
+    },
+    updateCard(_id: string, question: string, comments: string) {
+        return instance.put('cards/card', {card: {_id, question, comments}})
+    },
+    deleteCard(id: string) {
+        return instance.delete('cards/card', {params: {id}})
     }
 }
 
@@ -21,7 +27,7 @@ export type CardType = {
     created: string
     updated: string
     _v: number
-    _id: number
+    _id: string
 }
 
 type ResponseType = {
