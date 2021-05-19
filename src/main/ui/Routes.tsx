@@ -6,10 +6,10 @@ import Profile from "../../features/profile/ui/Profile";
 import ResetPassword from "../../features/reset-password/ui/ResetPassword";
 import NewPassword from "../../features/new-password/ui/NewPassword";
 import Test from "../../features/test/ui/Test";
-import Packs from "../../features/packs/ui/Packs";
 import Cards from "../../features/cards/ui/Cards";
 import LoginContainer from "../../features/auth/login/ui/LoginContainer";
 import RegistrationContainer from "../../features/auth/registration/ui/RegistrationContainer";
+import Packs from "../../features/packs/ui/Packs";
 
 export const PATH = {
     LOGIN : "/login",

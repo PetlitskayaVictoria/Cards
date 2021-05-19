@@ -1,26 +1,7 @@
-import {packsAPI} from "../dal/packs-api";
+import {packsAPI, PackType} from "../dal/packs-api";
 
-export type PackType = {
-    cardsCount: number
-    created: string
-    deckCover: null | string
-    grade: number
-    more_id: string
-    name: string
-    path: string
-    private: boolean
-    rating: number
-    shots: number
-    type: string
-    updated: string
-    user_id: string
-    user_name: string
-    __v: number
-    _id: string
-}
-type PacksStateType = {
+export type PacksParamsType = {
     packName: string
-    packsList: Array<PackType>
     min: number
     max: number
     sortPacks: number
@@ -28,15 +9,22 @@ type PacksStateType = {
     pageCount: number
     cardPacksTotalCount: number
 }
+
+type PacksStateType = {
+    packsList: Array<PackType>
+    packsParams: PacksParamsType
+}
 const initialState: PacksStateType = {
-    packName : "",
     packsList : [],
-    min : 0,
-    max : 50,
-    sortPacks : 0,
-    page : 1,
-    pageCount : 10,
-    cardPacksTotalCount : 0
+    packsParams: {
+        packName : "",
+        min : 0,
+        max : 50,
+        sortPacks : 0,
+        page : 1,
+        pageCount : 10,
+        cardPacksTotalCount : 0
+    }
 }
 
 export const packsReducer = (state: PacksStateType = initialState, action: ActionsType) => {
@@ -44,10 +32,10 @@ export const packsReducer = (state: PacksStateType = initialState, action: Actio
         case "SET_PACKS":
             return {...state, packsList : action.packsList}
         case "SET_PACKS_SEARCH_TERM":
-            return {...state, packName : action.packName}
+            return {...state, packsParams: {...state.packsParams, packName: action.packName}}
         case "SET_CARD_PACKS_TOTAL_COUNT":
-            return {...state, cardPacksTotalCount : action.cardPacksTotalCount}
-        case 'PACKS/SET_PAGE': return {...state, page: action.page}
+            return {...state, packsParams: {...state.packsParams, cardPacksTotalCount : action.cardPacksTotalCount}}
+        case 'PACKS/SET_PAGE': return {...state, packsParams: {...state.packsParams, page: action.page}}
         default:
             return state;
     }
@@ -67,30 +55,31 @@ export const setCardPacksTotalCountAC = (cardPacksTotalCount: number): SetCardPa
 export const setPageAC = (page: number): SetPageActionType => ({
     type : 'PACKS/SET_PAGE', page
 } as const)
+
 // TC
 
-export const fetchPacksTC = (packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) => (dispatch: any) => {
-    packsAPI.fetchPacks(packName, min, max, sortPacks, page, pageCount).then((res) => {
+export const fetchPacksTC = (packsParams: PacksParamsType) => (dispatch: any) => {
+    packsAPI.fetchPacks(packsParams).then((res) => {
         dispatch(setPacksListAC(res.data.cardPacks))
         dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
     })
 }
 
-export const addPackTC = (packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+export const addPackTC = (packsParams: PacksParamsType) => (dispatch: any) => {
     packsAPI.addPack().then(() => {
-        dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
+        dispatch(fetchPacksTC(packsParams))
     })
 }
 
-export const updatePackTC = (id: string, packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+export const updatePackTC = (id: string, packsParams: PacksParamsType) => (dispatch: any) => {
     packsAPI.updatePack(id).then(() => {
-        dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
+        dispatch(fetchPacksTC(packsParams))
     })
 }
 
-export const deletePackTC = (id: string, packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+export const deletePackTC = (id: string, packsParams: PacksParamsType) => (dispatch: any) => {
     packsAPI.deletePack(id).then(() => {
-        dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
+        dispatch(fetchPacksTC(packsParams))
     })
 }
 

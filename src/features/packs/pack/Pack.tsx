@@ -1,9 +1,9 @@
 import React from "react";
-import {PackType} from "../bll/packs-reducer";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../main/ui/Routes";
 import style from "./Pack.module.css"
 import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
+import {PackType} from "../dal/packs-api";
 
 type PackPropsType = {
     pack: PackType

@@ -4,51 +4,42 @@ import {AppRootStateType} from "../../../main/bll/store";
 import {
     addPackTC,
     deletePackTC,
-    fetchPacksTC,
-    PackType,
+    fetchPacksTC, PacksParamsType,
     SetPacksSearchTermAC,
     setPageAC,
     updatePackTC
 } from "../bll/packs-reducer";
+import {PackType} from "../dal/packs-api";
+import style from "./Packs.module.css";
 import Search from "../../../main/ui/common/c5-Search/Search";
-import Pack from "../pack/Pack";
-import style from "./Packs.module.css"
 import Paginator from "../../../main/ui/common/c4-Paginator/Paginator";
 import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
+import Pack from "../pack/Pack";
 
 const Packs = () => {
     const dispatch = useDispatch()
+    const packsParams = useSelector<AppRootStateType, PacksParamsType>((state) => state.packs.packsParams)
     const packs = useSelector<AppRootStateType, Array<PackType>>((state) => state.packs.packsList)
-    const packName = useSelector<AppRootStateType, string>((state) => state.packs.packName)
-    const page = useSelector<AppRootStateType, number>((state) => state.packs.page)
-    const pageCount = useSelector<AppRootStateType, number>((state) => state.packs.pageCount)
-    const min = useSelector<AppRootStateType, number>((state) => state.packs.min)
-    const max = useSelector<AppRootStateType, number>((state) => state.packs.max)
-    const sortPacks = useSelector<AppRootStateType, number>((state) => state.packs.sortPacks)
-    const cardPacksTotalCount = useSelector<AppRootStateType, number>((state) => state.packs.cardPacksTotalCount)
 
     useEffect(() => {
-        dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
-    }, [])
+        dispatch(fetchPacksTC(packsParams))
+    }, [packsParams.packName, packsParams.page])
 
     const setFilteredResults = (packName: string) => {
         dispatch(SetPacksSearchTermAC(packName))
-        dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
-
     }
     const setPage = (page: number) => {
         dispatch(setPageAC(page))
-        dispatch(fetchPacksTC(packName, min, max, sortPacks, page, pageCount))
     }
 
     const addPack = () => {
-        dispatch(addPackTC(packName, min, max, sortPacks, page, pageCount))
+        dispatch(addPackTC(packsParams))
     }
     const updatePack = (id: string) => {
-        dispatch(updatePackTC(id, packName, min, max, sortPacks, page, pageCount))
+        dispatch(updatePackTC(id, packsParams))
     }
     const deletePack = (id: string) => {
-        dispatch(deletePackTC(id, packName, min, max, sortPacks, page, pageCount))
+        dispatch(deletePackTC(id, packsParams))
     }
 
     return (
@@ -56,9 +47,9 @@ const Packs = () => {
             <h2>Packs</h2>
             <div className={style.filtersContainer}>
                 <Search setFilteredResults={setFilteredResults}/>
-                <Paginator totalItemsCount={cardPacksTotalCount}
-                           pageSize={pageCount}
-                           currentPage={page}
+                <Paginator totalItemsCount={packsParams.cardPacksTotalCount}
+                           pageSize={packsParams.pageCount}
+                           currentPage={packsParams.page}
                            onPageChanged={setPage}
                            portionSize={10}
                 />
@@ -81,5 +72,6 @@ const Packs = () => {
         </div>
     );
 }
+
 
 export default Packs;

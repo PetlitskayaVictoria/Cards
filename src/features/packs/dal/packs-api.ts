@@ -1,9 +1,9 @@
-import {PackType} from "../bll/packs-reducer";
 import {instance} from "../../../main/dal/instance";
+import {PacksParamsType} from "../bll/packs-reducer";
 
 export const packsAPI = {
-    fetchPacks(packName?: string, min?: number, max?: number, sortPacks?: number, page?: number, pageCount?: number) {
-        return instance.get<ResponseType>('cards/pack', {params: {packName, min, max, sortPacks, page, pageCount}});
+    fetchPacks(packsParams: PacksParamsType) {
+        return instance.get<ResponseType>('cards/pack', {params: {...packsParams}});
     },
     addPack() {
         return instance.post('cards/pack', {cardsPack: {name: "Testik 2", type: "pack"}})
@@ -25,4 +25,23 @@ type ResponseType = {
     pageCount: number
     token: string
     tokenDeathTime: number
+}
+
+export type PackType = {
+    cardsCount: number
+    created: string
+    deckCover: null | string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
 }
