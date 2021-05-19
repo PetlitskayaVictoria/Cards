@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import SuperButton from "../c2-SuperButton/SuperButton";
-import Modal from "./Modal";
+import Modal from "./Modal/Modal";
 
 const ModalContainer: React.FC = () => {
     const [isShown, setIsShown] = useState(false)
