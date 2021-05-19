@@ -62,6 +62,12 @@ function Navbar(props: NavbarType) {
                              activeClassName={classes.highlight}>Test</NavLink>
                 </li>
                 <li><NavLink to={PATH.LOGIN}><Logout/></NavLink></li>
+                <li>
+                    <NavLink onClick={onClickItem}
+                             to={PATH.MODALS}
+                             className={classes.menuItem}
+                             activeClassName={classes.highlight}>Modals</NavLink>
+                </li>
             </ul>
         </div>
     );

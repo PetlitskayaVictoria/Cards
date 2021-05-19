@@ -73,5 +73,4 @@ const Packs = () => {
     );
 }
 
-
 export default Packs;

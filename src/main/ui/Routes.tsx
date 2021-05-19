@@ -10,6 +10,8 @@ import Cards from "../../features/cards/ui/Cards";
 import LoginContainer from "../../features/auth/login/ui/LoginContainer";
 import RegistrationContainer from "../../features/auth/registration/ui/RegistrationContainer";
 import Packs from "../../features/packs/ui/Packs";
+import ModalContainer from "./common/c6-Modal/ModalContainer";
+import ModalsPage from "./common/c6-Modal/ModalsPage";
 
 export const PATH = {
     LOGIN : "/login",
@@ -19,7 +21,8 @@ export const PATH = {
     NEW_PASSWORD : "/new-password",
     TEST : "/test",
     PACKS : "/packs",
-    CARDS : "/cards"
+    CARDS : "/cards",
+    MODALS: "/modals"
 }
 
 function Routes() {
@@ -37,6 +40,7 @@ function Routes() {
                 <Route path={PATH.PACKS} render={() => <Packs/>}/>
                 <Route path={`${PATH.CARDS}/:id`} render={() => <Cards/>}/>
                 <Route path={PATH.TEST} render={() => <Test/>}/>
+                <Route path={PATH.MODALS} render={() => <ModalsPage />}/>
 
                 <Route render={() => <Error404/>}/>
 
