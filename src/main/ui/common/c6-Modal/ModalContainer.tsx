@@ -10,11 +10,20 @@ const ModalContainer: React.FC = () => {
 
     return (
         <>
-            <SuperButton onClick={() => {setIsShown(true)}}>Modal 1</SuperButton>
+            <SuperButton onClick={() => {
+                setIsShown(true)
+            }}>Modal 1</SuperButton>
             <Modal closeModalWindow={closeModalWindow}
                    isShown={isShown}
+                   showBackground={true}
+                   width={600}
+                   height={400}
+                   top={50}
+                   left={50}
+                   position={"absolute"}
             >
-            <SuperButton onClick={closeModalWindow}>Close</SuperButton>
+                <h3>Modal 1</h3>
+                <SuperButton onClick={closeModalWindow}>Close</SuperButton>
             </Modal>
         </>
     );

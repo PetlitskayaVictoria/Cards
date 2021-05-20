@@ -2,18 +2,35 @@ import React from "react";
 import style from './Modal.module.css';
 
 type ModalPropsType = {
-    closeModalWindow: () => void
+    closeModalWindow?: () => void
     isShown: boolean
+    scrollUp?: () => void
+    showBackground: boolean
+    width: number
+    height: number
+    top: number
+    left: number
+    position: "static" | "relative" | "absolute" | "sticky" | "fixed"
 };
 
-const Modal: React.FC<ModalPropsType> = (props) => {
+const Modal: React.FC<ModalPropsType> = (
+    {
+        isShown,
+        height,
+        width,
+        showBackground,
+        closeModalWindow,
+        scrollUp, top, left, position,
+        children
+    }) => {
 
     return (
         <div>
-            {props.isShown && <div className={style.modal}>
-                <div className={style.children}>{props.children}</div>
+            {isShown && <div className={style.modal} style={{width, height, position, top: `${top}%`, left: `${left}%`}}>
+                <div className={style.children} onClick={scrollUp}>{children}</div>
             </div>}
-            {props.isShown && <div className={style.overlay} onClick={props.closeModalWindow}></div>}
+            {isShown && showBackground &&
+            <div className={style.overlay} onClick={closeModalWindow}></div>}
         </div>
     );
 }

@@ -16,7 +16,14 @@ const ModalContainerWithInput: React.FC = () => {
             }}>Modal 2</SuperButton>
             <Modal closeModalWindow={closeModalWindow}
                    isShown={isShown}
+                   showBackground={true}
+                   width={600}
+                   height={400}
+                   top={50}
+                   left={50}
+                   position={"absolute"}
             >
+                <h3>Modal 2</h3>
                 <SuperInputText/>
                 <SuperInputText/>
                 <SuperInputText/>
