@@ -5,8 +5,11 @@ import {profileReducer} from "../../features/profile/bll/profile-reducer";
 import {resetPasswordReducer} from "../../features/reset-password/bll/reset-password-reducer";
 import {testReducer} from "../../features/test/bll/test-reducer";
 import thunkMiddleware, { ThunkAction } from 'redux-thunk'
-import {packsReducer} from "../../features/packs/bll/packs-reducer";
-import {cardsReducer} from "../../features/cards/bll/cards-reducer";
+import {
+        PacksActionsType,
+        packsReducer
+} from "../../features/packs/bll/packs-reducer";
+import {CardsActionsType, cardsReducer} from "../../features/cards/bll/cards-reducer";
 import {registrationReducer} from "../../features/auth/registration/bll/registration-reducer";
 
 const rootReducer = combineReducers({
@@ -21,7 +24,7 @@ const rootReducer = combineReducers({
 })
 
 export const store = createStore(rootReducer,applyMiddleware(thunkMiddleware));
-type AppActionType=ActionsLoginType
+type AppActionType = ActionsLoginType | PacksActionsType | CardsActionsType
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionType>
 

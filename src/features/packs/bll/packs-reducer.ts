@@ -1,4 +1,5 @@
 import {packsAPI, PackType} from "../dal/packs-api";
+import {AppThunk} from "../../../main/bll/store";
 
 export type PacksParamsType = {
     packName: string
@@ -27,7 +28,7 @@ const initialState: PacksStateType = {
     }
 }
 
-export const packsReducer = (state: PacksStateType = initialState, action: ActionsType) => {
+export const packsReducer = (state: PacksStateType = initialState, action: PacksActionsType) => {
     switch (action.type) {
         case "SET_PACKS":
             return {...state, packsList : action.packsList}
@@ -58,26 +59,26 @@ export const setPageAC = (page: number): SetPageActionType => ({
 
 // TC
 
-export const fetchPacksTC = (packsParams: PacksParamsType) => (dispatch: any) => {
+export const fetchPacksTC = (packsParams: PacksParamsType): AppThunk => (dispatch) => {
     packsAPI.fetchPacks(packsParams).then((res) => {
         dispatch(setPacksListAC(res.data.cardPacks))
         dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
     })
 }
 
-export const addPackTC = (packsParams: PacksParamsType) => (dispatch: any) => {
+export const addPackTC = (packsParams: PacksParamsType): AppThunk => (dispatch) => {
     packsAPI.addPack().then(() => {
         dispatch(fetchPacksTC(packsParams))
     })
 }
 
-export const updatePackTC = (id: string, packsParams: PacksParamsType) => (dispatch: any) => {
+export const updatePackTC = (id: string, packsParams: PacksParamsType): AppThunk => (dispatch) => {
     packsAPI.updatePack(id).then(() => {
         dispatch(fetchPacksTC(packsParams))
     })
 }
 
-export const deletePackTC = (id: string, packsParams: PacksParamsType) => (dispatch: any) => {
+export const deletePackTC = (id: string, packsParams: PacksParamsType): AppThunk => (dispatch) => {
     packsAPI.deletePack(id).then(() => {
         dispatch(fetchPacksTC(packsParams))
     })
@@ -102,7 +103,7 @@ export type SetPageActionType = {
     type: 'PACKS/SET_PAGE',
     page: number
 }
-type ActionsType =
+export type PacksActionsType =
     | SetPacksSearchTermActionType
     | SetPacksListActionType
     | SetCardPacksTotalCountActionType

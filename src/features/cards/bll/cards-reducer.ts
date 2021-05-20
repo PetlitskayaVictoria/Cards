@@ -1,7 +1,7 @@
 import {cardsAPI, CardType} from "../dal/cards-api";
+import {AppThunk} from "../../../main/bll/store";
 
-type CardsStateType = {
-    cardsList: Array<CardType>
+export type CardsParamsType = {
     minGrade: number
     maxGrade: number
     page: number
@@ -12,24 +12,36 @@ type CardsStateType = {
     cardsPack_id: string
     sortCards: number
 }
+
+type CardsStateType = {
+    cardsList: Array<CardType>
+    cardsParams: CardsParamsType
+}
 const initialState: CardsStateType = {
     cardsList : [],
-    minGrade : 0,
-    maxGrade : 100,
-    page : 1,
-    pageCount : 10,
-    cardsTotalCount : 0,
-    cardAnswer: "",
-    cardQuestion: "",
-    cardsPack_id: "",
-    sortCards: 0
+    cardsParams : {
+        minGrade : 0,
+        maxGrade : 100,
+        page : 1,
+        pageCount : 10,
+        cardsTotalCount : 0,
+        cardAnswer : "",
+        cardQuestion : "",
+        cardsPack_id : "",
+        sortCards : 0
+    }
 }
 
-export const cardsReducer = (state: CardsStateType = initialState, action: ActionsType) => {
+export const cardsReducer = (state: CardsStateType = initialState, action: CardsActionsType) => {
     switch (action.type) {
-        case "SET_CARDS": return {...state, cardsList: action.cardsList}
-        case "SET_CARD_TOTAL_COUNT": return {...state, cardsTotalCount: action.cardsTotalCount}
-        case "CARDS/SET_PAGE": return {...state, page: action.page}
+        case "SET_CARDS":
+            return {...state, cardsList : action.cardsList}
+        case "SET_CARD_TOTAL_COUNT":
+            return {...state, cardsParams : {...state.cardsParams, cardsTotalCount : action.cardsTotalCount}}
+        case "CARDS/SET_PAGE":
+            return {...state, cardsParams : {...state.cardsParams, page : action.page}}
+        case "CARDS/SET_PACK_ID":
+            return {...state, cardsParams : {...state.cardsParams, cardsPack_id : action.id}}
         default:
             return state;
     }
@@ -48,31 +60,31 @@ export const setCardsPageAC = (page: number): SetCardsPageActionType => ({
     type : 'CARDS/SET_PAGE', page
 } as const)
 
+export const setPackIdAC = (id: string): SetPackIdActionType => ({
+    type : 'CARDS/SET_PACK_ID', id
+} as const)
+
 //Thunk
 
-export const fetchCardsTC = (cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) => (dispatch: any) => {
-    cardsAPI.fetchCards(cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount).then((res) => {
+export const fetchCardsTC = (cardsParams: CardsParamsType): AppThunk => (dispatch) => {
+    cardsAPI.fetchCards(cardsParams).then((res) => {
         dispatch(setCardsListAC(res.data.cards))
         dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
     })
 }
-
-export const addCardTC = (card: CardType, cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+export const addCardTC = (card: CardType, cardsParams: CardsParamsType): AppThunk => (dispatch) => {
     cardsAPI.addCard(card).then(() => {
-        dispatch(fetchCardsTC(cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount))
+        dispatch(fetchCardsTC(cardsParams))
     })
 }
-
-
-export const updateCardTC = (_id: string, question: string, comments: string, cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+export const updateCardTC = (_id: string, question: string, comments: string, cardsParams: CardsParamsType): AppThunk => (dispatch) => {
     cardsAPI.updateCard(_id, question, comments).then(() => {
-        dispatch(fetchCardsTC(cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount))
+        dispatch(fetchCardsTC(cardsParams))
     })
 }
-
-export const deleteCardTC = (id: string,  cardAnswer?: string, cardQuestion?: string, cardsPack_id?: string, min?: number, max?: number, sortCards?: number, page?: number, pageCount?: number) => (dispatch: any) => {
+export const deleteCardTC = (id: string, cardsParams: CardsParamsType): AppThunk => (dispatch) => {
     cardsAPI.deleteCard(id).then(() => {
-        dispatch(fetchCardsTC(cardAnswer, cardQuestion, cardsPack_id, min, max, sortCards, page, pageCount))
+        dispatch(fetchCardsTC(cardsParams))
     })
 }
 
@@ -84,11 +96,20 @@ export type SetCardSTotalCountActionType = {
     type: 'SET_CARD_TOTAL_COUNT'
     cardsTotalCount: number
 }
-
 export type SetCardsPageActionType = {
-    type : 'CARDS/SET_PAGE'
+    type: 'CARDS/SET_PAGE'
     page: number
 }
 
-type ActionsType = SetCardsListActionType | SetCardSTotalCountActionType | SetCardsPageActionType
+export type SetPackIdActionType = {
+    type: 'CARDS/SET_PACK_ID',
+    id: string
+}
+
+export type CardsActionsType =
+    | SetCardsListActionType
+    | SetCardSTotalCountActionType
+    | SetCardsPageActionType
+    | SetPackIdActionType
+
 
