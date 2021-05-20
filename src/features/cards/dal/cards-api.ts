@@ -18,7 +18,7 @@ export type CardType = {
     created: string
     updated: string
     _v: number
-    _id: number
+    _id: string
 }
 
 type ResponseType = {

@@ -25,9 +25,12 @@ const Pack: React.FC<PackPropsType> = (props) => {
                 <td>{props.pack.updated}</td>
                 <button onClick={onUpdateClick}>update</button>
                 <button onClick={onDeleteClick}>delete</button>
-                <NavLink
-                         to={`${PATH.CARDS}/${props.pack._id}`}
-                         >cards</NavLink>
+                <td><NavLink
+                    to={`${PATH.CARDS}/${props.pack._id}`}
+                >cards</NavLink></td>
+                <td><NavLink
+                    to={`${PATH.LEARNING}/${props.pack._id}`}
+                >learn</NavLink></td>
             </tr>
 
         </>

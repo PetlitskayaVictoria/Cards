@@ -10,16 +10,18 @@ import Packs from "../../features/packs/ui/Packs";
 import Cards from "../../features/cards/ui/Cards";
 import LoginContainer from "../../features/auth/login/ui/LoginContainer";
 import RegistrationContainer from "../../features/auth/registration/ui/RegistrationContainer";
+import {LearningPage} from "../../features/learning/ui/LearnPage";
 
 export const PATH = {
-    LOGIN : "/login",
-    REGISTRATION : "/registration",
-    PROFILE : "/profile",
-    RESET_PASSWORD : "/reset-password",
-    NEW_PASSWORD : "/new-password",
-    TEST : "/test",
-    PACKS : "/packs",
-    CARDS : "/cards"
+    LOGIN: "/login",
+    REGISTRATION: "/registration",
+    PROFILE: "/profile",
+    RESET_PASSWORD: "/reset-password",
+    NEW_PASSWORD: "/new-password",
+    TEST: "/test",
+    PACKS: "/packs",
+    CARDS: "/cards",
+    LEARNING: "/learning"
 }
 
 function Routes() {
@@ -36,6 +38,7 @@ function Routes() {
                 <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword/>}/>
                 <Route path={PATH.PACKS} render={() => <Packs/>}/>
                 <Route path={PATH.CARDS} render={() => <Cards/>}/>
+                <Route path={PATH.LEARNING} render={() => <LearningPage/>}/>
                 <Route path={PATH.TEST} render={() => <Test/>}/>
 
                 <Route render={() => <Error404/>}/>
