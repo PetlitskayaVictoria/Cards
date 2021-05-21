@@ -14,10 +14,11 @@ export type PacksParamsType = {
 type PacksStateType = {
     packsList: Array<PackType>
     packsParams: PacksParamsType
+    error: string | null
 }
 const initialState: PacksStateType = {
     packsList : [],
-    packsParams: {
+    packsParams : {
         packName : "",
         min : 0,
         max : 50,
@@ -25,7 +26,8 @@ const initialState: PacksStateType = {
         page : 1,
         pageCount : 10,
         cardPacksTotalCount : 0
-    }
+    },
+    error : null
 }
 
 export const packsReducer = (state: PacksStateType = initialState, action: PacksActionsType) => {
@@ -33,10 +35,12 @@ export const packsReducer = (state: PacksStateType = initialState, action: Packs
         case "SET_PACKS":
             return {...state, packsList : action.packsList}
         case "SET_PACKS_SEARCH_TERM":
-            return {...state, packsParams: {...state.packsParams, packName: action.packName}}
+            return {...state, packsParams : {...state.packsParams, packName : action.packName}}
         case "SET_CARD_PACKS_TOTAL_COUNT":
-            return {...state, packsParams: {...state.packsParams, cardPacksTotalCount : action.cardPacksTotalCount}}
-        case 'PACKS/SET_PAGE': return {...state, packsParams: {...state.packsParams, page: action.page}}
+            return {...state, packsParams : {...state.packsParams, cardPacksTotalCount : action.cardPacksTotalCount}}
+        case 'PACKS/SET_PAGE':
+            return {...state, packsParams : {...state.packsParams, page : action.page}}
+        case "PACKS/SET_ERROR": return {...state, error: action.error}
         default:
             return state;
     }
@@ -56,6 +60,10 @@ export const setCardPacksTotalCountAC = (cardPacksTotalCount: number): SetCardPa
 export const setPageAC = (page: number): SetPageActionType => ({
     type : 'PACKS/SET_PAGE', page
 } as const)
+export const setPacksErrorAC = (error: null | string): SetPacksErrorActionType => ({
+    type : 'PACKS/SET_ERROR', error
+} as const)
+
 
 // TC
 
@@ -93,18 +101,21 @@ export type SetPacksListActionType = {
     type: 'SET_PACKS',
     packsList: Array<PackType>
 }
-
 export type SetCardPacksTotalCountActionType = {
     type: 'SET_CARD_PACKS_TOTAL_COUNT',
     cardPacksTotalCount: number
 }
-
 export type SetPageActionType = {
     type: 'PACKS/SET_PAGE',
     page: number
+}
+export type SetPacksErrorActionType = {
+    type: 'PACKS/SET_ERROR',
+    error: string | null
 }
 export type PacksActionsType =
     | SetPacksSearchTermActionType
     | SetPacksListActionType
     | SetCardPacksTotalCountActionType
     | SetPageActionType
+    | SetPacksErrorActionType

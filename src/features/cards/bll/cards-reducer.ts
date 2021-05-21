@@ -16,6 +16,7 @@ export type CardsParamsType = {
 type CardsStateType = {
     cardsList: Array<CardType>
     cardsParams: CardsParamsType
+    error: string | null
 }
 const initialState: CardsStateType = {
     cardsList : [],
@@ -29,7 +30,8 @@ const initialState: CardsStateType = {
         cardQuestion : "",
         cardsPack_id : "",
         sortCards : 0
-    }
+    },
+    error : null
 }
 
 export const cardsReducer = (state: CardsStateType = initialState, action: CardsActionsType) => {
@@ -42,6 +44,7 @@ export const cardsReducer = (state: CardsStateType = initialState, action: Cards
             return {...state, cardsParams : {...state.cardsParams, page : action.page}}
         case "CARDS/SET_PACK_ID":
             return {...state, cardsParams : {...state.cardsParams, cardsPack_id : action.id}}
+        case "CARDS/SET_ERROR": return {...state, error: action.error}
         default:
             return state;
     }
@@ -64,27 +67,39 @@ export const setPackIdAC = (id: string): SetPackIdActionType => ({
     type : 'CARDS/SET_PACK_ID', id
 } as const)
 
+export const setCardsErrorAC = (error: null | string): SetCardsErrorActionType => ({
+    type : 'CARDS/SET_ERROR', error
+} as const)
+
 //Thunk
 
 export const fetchCardsTC = (cardsParams: CardsParamsType): AppThunk => (dispatch) => {
     cardsAPI.fetchCards(cardsParams).then((res) => {
         dispatch(setCardsListAC(res.data.cards))
         dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
+    }).catch((error) => {
+        dispatch(setCardsErrorAC(error.response.data.error))
     })
 }
 export const addCardTC = (card: CardType, cardsParams: CardsParamsType): AppThunk => (dispatch) => {
     cardsAPI.addCard(card).then(() => {
         dispatch(fetchCardsTC(cardsParams))
+    }).catch((error) => {
+        dispatch(setCardsErrorAC(error.response.data.error))
     })
 }
 export const updateCardTC = (_id: string, question: string, comments: string, cardsParams: CardsParamsType): AppThunk => (dispatch) => {
     cardsAPI.updateCard(_id, question, comments).then(() => {
         dispatch(fetchCardsTC(cardsParams))
+    }).catch((error) => {
+        dispatch(setCardsErrorAC(error.response.data.error))
     })
 }
 export const deleteCardTC = (id: string, cardsParams: CardsParamsType): AppThunk => (dispatch) => {
     cardsAPI.deleteCard(id).then(() => {
         dispatch(fetchCardsTC(cardsParams))
+    }).catch((error) => {
+        dispatch(setCardsErrorAC(error.response.data.error))
     })
 }
 
@@ -106,10 +121,16 @@ export type SetPackIdActionType = {
     id: string
 }
 
+export type SetCardsErrorActionType = {
+    type: 'CARDS/SET_ERROR',
+    error: string | null
+}
+
 export type CardsActionsType =
     | SetCardsListActionType
     | SetCardSTotalCountActionType
     | SetCardsPageActionType
     | SetPackIdActionType
+    | SetCardsErrorActionType
 
 
