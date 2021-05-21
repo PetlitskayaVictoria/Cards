@@ -1,9 +1,9 @@
 import React from "react";
+import {PackType} from "../dal/packs-api";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../main/ui/Routes";
 import style from "./Pack.module.css"
 import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
-import {PackType} from "../dal/packs-api";
 
 type PackPropsType = {
     pack: PackType
@@ -27,9 +27,12 @@ const Pack: React.FC<PackPropsType> = (props) => {
                 <td>{props.pack.updated}</td>
                 <SuperButton onClick={onUpdateClick}>update</SuperButton>
                 <SuperButton onClick={onDeleteClick}>delete</SuperButton>
-                <NavLink
-                         to={`${PATH.CARDS}/${id}`}
-                         >cards</NavLink>
+                <td><NavLink
+                    to={`${PATH.CARDS}/${id}`}
+                >cards</NavLink></td>
+                <td><NavLink
+                    to={`${PATH.LEARNING}/${props.pack._id}`}
+                >learn</NavLink></td>
             </tr>
 
         </>
