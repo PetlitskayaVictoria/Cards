@@ -39,7 +39,7 @@ function Routes() {
                 <Route path={PATH.RESET_PASSWORD} render={() => <ResetPassword/>}/>
                 <Route path={PATH.NEW_PASSWORD} render={() => <NewPassword/>}/>
                 <Route path={PATH.PACKS} render={() => <Packs/>}/>
-                <Route path={`${PATH.CARDS}/:id`} render={() => <Cards/>}/>
+                <Route path={`${PATH.CARDS}/:cardsPack_id?`}  render={() => <Cards />}/>
                 <Route path={PATH.LEARNING} render={() => <LearningPage/>}/>
                 <Route path={PATH.TEST} render={() => <Test/>}/>
                 <Route path={PATH.MODALS} render={() => <ModalsPage />}/>
