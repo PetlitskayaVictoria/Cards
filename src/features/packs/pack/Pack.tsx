@@ -19,6 +19,7 @@ const Pack: React.FC<PackPropsType> = (props) => {
         props.deletePack(props.pack._id)
     }
     const id = props.pack._id
+
     return (
         <>
             <tr className={style.packItem}>

@@ -3,7 +3,7 @@ import {CardsParamsType} from "../bll/cards-reducer";
 
 export const cardsAPI = {
     fetchCards(cardsParams: FetchCardsPayloadType) {
-        return instance.get<ResponseType>(`cards/card?cardsPack_id`, {params: {...cardsParams}})
+        return instance.get<ResponseType>(`cards/card`, {params: {...cardsParams}})
     },
     addCard(card: CardType) {
         return instance.post('cards/card', {card})
