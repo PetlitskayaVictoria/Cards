@@ -74,14 +74,14 @@ export const fetchPacksTC = (packsParams: PacksParamsType): AppThunk => (dispatc
     })
 }
 
-export const addPackTC = (packsParams: PacksParamsType): AppThunk => (dispatch) => {
-    packsAPI.addPack().then(() => {
+export const addPackTC = (packsParams: PacksParamsType, name: string): AppThunk => (dispatch) => {
+    packsAPI.addPack(name).then(() => {
         dispatch(fetchPacksTC(packsParams))
     })
 }
 
-export const updatePackTC = (id: string, packsParams: PacksParamsType): AppThunk => (dispatch) => {
-    packsAPI.updatePack(id).then(() => {
+export const updatePackTC = (id: string, name: string, packsParams: PacksParamsType): AppThunk => (dispatch) => {
+    packsAPI.updatePack(id, name).then(() => {
         dispatch(fetchPacksTC(packsParams))
     })
 }

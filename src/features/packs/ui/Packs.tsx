@@ -4,7 +4,8 @@ import {AppRootStateType} from "../../../main/bll/store";
 import {
     addPackTC,
     deletePackTC,
-    fetchPacksTC, PacksParamsType,
+    fetchPacksTC,
+    PacksParamsType,
     SetPacksSearchTermAC,
     setPageAC,
     updatePackTC
@@ -13,8 +14,8 @@ import {PackType} from "../dal/packs-api";
 import style from "./Packs.module.css";
 import Search from "../../../main/ui/common/c5-Search/Search";
 import Paginator from "../../../main/ui/common/c4-Paginator/Paginator";
-import SuperButton from "../../../main/ui/common/c2-SuperButton/SuperButton";
 import Pack from "../pack/Pack";
+import ModalWithInput from "../../../main/ui/common/c6-Modal/ModalWithInput";
 
 const Packs = () => {
     const dispatch = useDispatch()
@@ -32,11 +33,11 @@ const Packs = () => {
         dispatch(setPageAC(page))
     }
 
-    const addPack = () => {
-        dispatch(addPackTC(packsParams))
+    const addPack = (name: string) => {
+        dispatch(addPackTC(packsParams, name))
     }
-    const updatePack = (id: string) => {
-        dispatch(updatePackTC(id, packsParams))
+    const updatePack = (id: string, name: string) => {
+        dispatch(updatePackTC(id, name, packsParams))
     }
     const deletePack = (id: string) => {
         dispatch(deletePackTC(id, packsParams))
@@ -59,7 +60,9 @@ const Packs = () => {
                     <td>Name</td>
                     <td>Cards Count</td>
                     <td>Updated</td>
-                    <SuperButton onClick={addPack} className={style.addButton}>ADD</SuperButton>
+                    <ModalWithInput onSave={addPack}
+                                    buttonName={"ADD"}
+                                    modalTitle={"Create a pack"}/>
                 </tr>
                 {packs.map((p) => {
                     return <Pack key={p._id}

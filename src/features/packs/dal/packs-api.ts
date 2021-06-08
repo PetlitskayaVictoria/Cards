@@ -5,11 +5,11 @@ export const packsAPI = {
     fetchPacks(packsParams: PacksParamsType) {
         return instance.get<ResponseType>('cards/pack', {params: {...packsParams}});
     },
-    addPack() {
-        return instance.post('cards/pack', {cardsPack: {name: "Testik 2", type: "pack"}})
+    addPack(name: string) {
+        return instance.post('cards/pack', {cardsPack: {name, type: "pack"}})
     },
-    updatePack(_id: string) {
-        return instance.put('cards/pack', {cardsPack: {_id, name: "Testik 2 changed"}})
+    updatePack(_id: string, name: string) {
+        return instance.put('cards/pack', {cardsPack: {_id, name}})
     },
     deletePack(id: string) {
         return instance.delete('cards/pack', {params: {id}})

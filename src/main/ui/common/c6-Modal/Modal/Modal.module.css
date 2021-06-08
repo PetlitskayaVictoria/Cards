@@ -26,4 +26,9 @@
     justify-content: center;
 }
 
+.modal button {
+    margin: 43px 0 0 20px;
+    width: 100px;
+    height: 40px;
+}
 
