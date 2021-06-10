@@ -1,6 +1,7 @@
 import {cardsAPI, CardType, FetchCardsPayloadType} from "../dal/cards-api";
 import {AppThunk} from "../../../main/bll/store";
 import {Dispatch} from "react";
+import {setAppStatusAC} from "../../../main/ui/app-reducer";
 
 export type CardsParamsType = {
     minGrade: number
@@ -95,7 +96,10 @@ export const setGrade = (grade: number, id: string) => ({
 
 
 export const fetchCardsTC = (cardsParams: FetchCardsPayloadType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     cardsAPI.fetchCards(cardsParams).then((res) => {
+        dispatch(setAppStatusAC('succeeded'))
+
         dispatch(setCardsListAC(res.data.cards))
         dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
     }).catch((error) => {
@@ -104,21 +108,27 @@ export const fetchCardsTC = (cardsParams: FetchCardsPayloadType): AppThunk => (d
 }
 
 export const addCardTC = (card: CardType, cardsParams: FetchCardsPayloadType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     cardsAPI.addCard(card).then((res) => {
+        dispatch(setAppStatusAC('succeeded'))
         dispatch(fetchCardsTC(cardsParams))
     }).catch((error) => {
         dispatch(setCardsErrorAC(error.response.data.error))
     })
 }
 export const updateCardTC = (_id: string, question: string, comments: string, cardsParams: FetchCardsPayloadType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     cardsAPI.updateCard(_id, question, comments).then((res) => {
+        dispatch(setAppStatusAC('succeeded'))
         dispatch(fetchCardsTC(cardsParams))
     }).catch((error) => {
         dispatch(setCardsErrorAC(error.response.data.error))
     })
 }
 export const deleteCardTC = (id: string, cardsParams: FetchCardsPayloadType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     cardsAPI.deleteCard(id).then((res) => {
+        dispatch(setAppStatusAC('succeeded'))
         dispatch(fetchCardsTC(cardsParams))
     }).catch((error) => {
         dispatch(setCardsErrorAC(error.response.data.error))
@@ -167,5 +177,7 @@ export type CardsActionsType =
     | SetPackIdActionType
     | SetCardsErrorActionType
     | ReturnType<typeof setGrade>
+    |ReturnType<typeof setAppStatusAC>
+
 
 

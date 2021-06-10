@@ -1,10 +1,11 @@
 import {loginAPI} from "../dal/login-api";
 import {AppThunk} from "../../../../main/bll/store";
+import {setAppStatusAC} from "../../../../main/ui/app-reducer";
 
 export const SET_IS_LOGIN = 'SET-IS-LOGIN';
 export const SET_ERROR = "SET_ERROR";
 
-export type ActionsLoginType = ReturnType<typeof setLoginAC> | ReturnType<typeof setError>
+export type ActionsLoginType = ReturnType<typeof setLoginAC> | ReturnType<typeof setError>|ReturnType<typeof setAppStatusAC>
 type LoginStateType = {
     user: UserType | {}
     isLogin: boolean
@@ -55,8 +56,10 @@ export const setError = (error: string | null) => ({
 
 export const login = (email: string, password: string, rememberMe: boolean): AppThunk =>
     (dispatch) => {
+        dispatch(setAppStatusAC('loading'))
         loginAPI.login(email, password, rememberMe)
             .then((response) => {
+                dispatch(setAppStatusAC('succeeded'))
                 dispatch(setLoginAC({user: response.data, isLogin: true, error: null}))
             })
             .catch((e) => {
@@ -67,8 +70,10 @@ export const login = (email: string, password: string, rememberMe: boolean): App
     }
 export const logout = (): AppThunk =>
     (dispatch) => {
+        dispatch(setAppStatusAC('loading'))
         loginAPI.logout()
             .then(response => {
+                dispatch(setAppStatusAC('succeeded'))
                 dispatch(setLoginAC({user: {}, isLogin: false, error: null}))
                 alert(response.data.info)
 

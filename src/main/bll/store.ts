@@ -11,6 +11,7 @@ import {
 } from "../../features/packs/bll/packs-reducer";
 import {CardsActionsType, cardsReducer} from "../../features/cards/bll/cards-reducer";
 import {registrationReducer} from "../../features/auth/registration/bll/registration-reducer";
+import {appReducer} from "../ui/app-reducer";
 
 const rootReducer = combineReducers({
         login: authReducer,
@@ -20,7 +21,9 @@ const rootReducer = combineReducers({
         resetPassword: resetPasswordReducer,
         test: testReducer,
         packs: packsReducer,
-        cards: cardsReducer
+        cards: cardsReducer,
+        app:appReducer
+
 })
 
 export const store = createStore(rootReducer,applyMiddleware(thunkMiddleware));

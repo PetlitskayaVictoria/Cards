@@ -16,6 +16,7 @@ function Header() {
                      src="https://upload.wikimedia.org/wikipedia/commons/b/b2/Hamburger_icon.svg"
                      alt="menu"/>
             </div>
+
             <Navbar isCollapsed={isCollapsed} setCollapsed={setCollapsed}/>
 
         </div>

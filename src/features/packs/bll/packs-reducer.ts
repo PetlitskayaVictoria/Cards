@@ -1,5 +1,6 @@
 import {packsAPI, PackType} from "../dal/packs-api";
 import {AppThunk} from "../../../main/bll/store";
+import {setAppStatusAC} from "../../../main/ui/app-reducer";
 
 export type PacksParamsType = {
     packName: string
@@ -68,26 +69,38 @@ export const setPacksErrorAC = (error: null | string): SetPacksErrorActionType =
 // TC
 
 export const fetchPacksTC = (packsParams: PacksParamsType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+
     packsAPI.fetchPacks(packsParams).then((res) => {
+        dispatch(setAppStatusAC('succeeded'))
+
         dispatch(setPacksListAC(res.data.cardPacks))
         dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
     })
 }
 
 export const addPackTC = (packsParams: PacksParamsType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
+
     packsAPI.addPack().then(() => {
+        dispatch(setAppStatusAC('succeeded'))
+
         dispatch(fetchPacksTC(packsParams))
     })
 }
 
 export const updatePackTC = (id: string, packsParams: PacksParamsType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     packsAPI.updatePack(id).then(() => {
+        dispatch(setAppStatusAC('succeeded'))
         dispatch(fetchPacksTC(packsParams))
     })
 }
 
 export const deletePackTC = (id: string, packsParams: PacksParamsType): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     packsAPI.deletePack(id).then(() => {
+        dispatch(setAppStatusAC('succeeded'))
         dispatch(fetchPacksTC(packsParams))
     })
 }
@@ -119,3 +132,4 @@ export type PacksActionsType =
     | SetCardPacksTotalCountActionType
     | SetPageActionType
     | SetPacksErrorActionType
+|ReturnType<typeof setAppStatusAC>

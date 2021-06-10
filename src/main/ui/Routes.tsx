@@ -29,6 +29,7 @@ export const PATH = {
 function Routes() {
     return (
         <div className={styles.mainContainer}>
+
             <Switch>
 
                 <Route path={"/"} exact render={() => <Redirect to={PATH.LOGIN}/>}/>
@@ -47,6 +48,7 @@ function Routes() {
                 <Route render={() => <Error404/>}/>
 
             </Switch>
+
         </div>
     );
 }
